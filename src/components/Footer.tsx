@@ -16,25 +16,19 @@ const footerLinks = [
 
 export const Footer = () => {
   return (
-    <footer className="relative py-16 border-t border-border/30">
-      {/* Background */}
-      <div className="absolute inset-0 grid-background opacity-10" />
-
-      <div className="container mx-auto px-6 relative z-10">
+    <footer className="relative py-12 border-t border-border/50">
+      <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo & Info */}
           <div className="text-center md:text-left">
-            <div className="flex items-center gap-3 justify-center md:justify-start mb-4">
-              <span className="font-display text-3xl font-bold text-primary neon-text">ε</span>
-              <span className="font-display text-xl font-semibold text-foreground tracking-wider">
+            <div className="flex items-center gap-3 justify-center md:justify-start mb-3">
+              <span className="text-2xl font-bold text-primary">ε</span>
+              <span className="text-lg font-semibold text-foreground tracking-wide">
                 EPSILON 2026
               </span>
             </div>
-            <p className="text-muted-foreground text-sm mb-2">
-              IEEE Annual Flagship Technical Symposium
-            </p>
-            <p className="text-muted-foreground text-sm">
-              Organized by IEEE SIES GST Student Branch
+            <p className="text-muted-foreground text-xs">
+              IEEE SIES GST Student Branch
             </p>
           </div>
 
@@ -44,7 +38,7 @@ export const Footer = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors text-sm uppercase tracking-wide"
+                className="text-muted-foreground hover:text-primary transition-colors text-xs uppercase tracking-wide"
               >
                 {link.name}
               </a>
@@ -52,31 +46,30 @@ export const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
-                className="w-10 h-10 rounded-full border border-border/50 bg-secondary/30 flex items-center justify-center hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 group"
+                className="w-9 h-9 rounded-full border border-border/50 bg-secondary/30 flex items-center justify-center hover:border-primary/30 hover:bg-primary/10 transition-all duration-200"
               >
-                <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <social.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </a>
             ))}
           </div>
         </div>
 
         {/* Divider */}
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent my-8" />
+        <div className="h-px w-full bg-border/30 my-8" />
 
         {/* Bottom Row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-xs">
             © 2026 EPSILON. All rights reserved.
           </p>
-          <p className="text-muted-foreground text-sm flex items-center gap-2">
-            Powered by{' '}
-            <span className="text-primary font-medium">IEEE Student Branch</span>
+          <p className="text-muted-foreground text-xs">
+            Powered by <span className="text-primary">IEEE Student Branch</span>
           </p>
         </div>
       </div>

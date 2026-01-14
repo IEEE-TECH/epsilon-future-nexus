@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Mic, Wrench, MessageSquare } from 'lucide-react';
+import { TiltCard } from '@/components/ui/TiltCard';
 
 const schedule = [
   {
@@ -42,83 +43,65 @@ const schedule = [
 
 export const Schedule = () => {
   return (
-    <section id="schedule" className="relative py-32 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 grid-background opacity-20" />
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+    <section id="schedule" className="relative py-24 md:py-32">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium tracking-widest uppercase mb-6">
+          <span className="inline-block px-4 py-2 rounded-full border border-border bg-secondary/30 text-primary text-xs font-medium tracking-[0.15em] uppercase mb-6">
             Event Schedule
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-8">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
             Three Days of <span className="text-primary">Innovation</span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto">
             A carefully curated program designed to inspire, educate, and connect.
           </p>
         </motion.div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Connecting Line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {schedule.map((day, index) => (
-              <motion.div
-                key={day.day}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="relative"
-              >
-                {/* Timeline Node */}
-                <div className="hidden lg:flex absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-background border-2 border-primary items-center justify-center z-10">
-                  <div className="w-3 h-3 rounded-full bg-primary animate-pulse-glow" />
-                </div>
-
-                <div className="glass-card glow-border p-8 mt-8 group hover:border-primary/50 transition-all duration-500">
-                  {/* Header */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: '1000px' }}>
+          {schedule.map((day, index) => (
+            <motion.div
+              key={day.day}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+            >
+              <TiltCard className="h-full" intensity={8}>
+                <div className="glass-card p-6 md:p-8 h-full bg-gradient-to-br from-card/80 to-card/40 border-border/50 group">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <day.icon className="w-7 h-7 text-primary" />
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+                      <day.icon className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-display text-xl font-bold text-primary">{day.day}</h3>
-                      <p className="text-muted-foreground text-sm">{day.date}</p>
+                      <h3 className="text-lg font-semibold text-primary">{day.day}</h3>
+                      <p className="text-muted-foreground text-xs">{day.date}</p>
                     </div>
                   </div>
 
-                  {/* Title */}
-                  <h4 className="font-display text-2xl font-bold text-foreground mb-6 group-hover:text-primary transition-colors">
+                  <h4 className="text-xl font-semibold text-foreground mb-5 group-hover:text-primary transition-colors">
                     {day.title}
                   </h4>
 
-                  {/* Events */}
                   <ul className="space-y-3">
-                    {day.events.map((event, eventIndex) => (
-                      <li
-                        key={event}
-                        className="flex items-center gap-3 text-muted-foreground"
-                      >
-                        <div className="w-2 h-2 rounded-full bg-primary/50" />
+                    {day.events.map((event) => (
+                      <li key={event} className="flex items-center gap-3 text-muted-foreground">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
                         <span className="text-sm">{event}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </TiltCard>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
