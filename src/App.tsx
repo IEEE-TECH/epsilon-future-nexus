@@ -10,26 +10,29 @@ import { Preloader } from "@/components/Preloader";
 import { SoundProvider } from "@/components/ui/SoundProvider";
 import { HackerModeToggle } from "@/components/ui/HackerModeToggle";
 import { FloatingActionButton } from "@/components/ui/FloatingActionButton";
+import { LenisProvider } from "@/components/ui/LenisProvider";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <SoundProvider>
-        <Preloader />
-        <CustomCursor />
-        <HackerModeToggle />
-        <FloatingActionButton />
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </SoundProvider>
+      <LenisProvider>
+        <SoundProvider>
+          <Preloader />
+          <CustomCursor />
+          <HackerModeToggle />
+          <FloatingActionButton />
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </SoundProvider>
+      </LenisProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
