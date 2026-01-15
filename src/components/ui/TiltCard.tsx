@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 interface TiltCardProps {
@@ -9,6 +9,8 @@ interface TiltCardProps {
 
 export const TiltCard = ({ children, className = "", intensity = 15 }: TiltCardProps) => {
     const ref = useRef<HTMLDivElement>(null);
+    const [isMobile, setIsMobile] = useState(false);
+
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -18,8 +20,18 @@ export const TiltCard = ({ children, className = "", intensity = 15 }: TiltCardP
     const rotateX = useTransform(mouseY, [-0.5, 0.5], [intensity, -intensity]);
     const rotateY = useTransform(mouseX, [-0.5, 0.5], [-intensity, intensity]);
 
+    useEffect(() => {
+        // Disable tilt on mobile/touch devices
+        const checkMobile = () => {
+            setIsMobile(window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!ref.current) return;
+        if (isMobile || !ref.current) return;
 
         const rect = ref.current.getBoundingClientRect();
         const width = rect.width;
@@ -39,6 +51,11 @@ export const TiltCard = ({ children, className = "", intensity = 15 }: TiltCardP
         x.set(0);
         y.set(0);
     };
+
+    // On mobile, just render children without tilt effect
+    if (isMobile) {
+        return <div className={className}>{children}</div>;
+    }
 
     return (
         <motion.div

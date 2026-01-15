@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { DecryptedText } from '@/components/ui/DecryptedText';
+import { CircularProgress } from '@/components/ui/CircularProgress';
 
 export const Theme = () => {
   return (
@@ -45,26 +47,21 @@ export const Theme = () => {
               EPSILON 2026 Theme
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-              Intelligent Systems <br />
-              <span className="text-primary">Shaping Tomorrow</span>
+              <DecryptedText text="Intelligent Systems" /> <br />
+              <span className="text-primary">
+                <DecryptedText text="Shaping Tomorrow" />
+              </span>
             </h2>
             <p className="text-base text-muted-foreground mb-6 leading-relaxed">
               This year's symposium explores the transformative power of artificial intelligence,
               machine learning, and autonomous systems across industries—from healthcare to cybersecurity.
             </p>
 
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: '50+', label: 'Speakers' },
-                { value: '20+', label: 'Workshops' },
-                { value: '1000+', label: 'Attendees' },
-                { value: '3', label: 'Days' },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center p-4 rounded-lg bg-secondary/30 border border-border/50">
-                  <div className="text-2xl md:text-3xl font-bold text-primary mb-1">{stat.value}</div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wider">{stat.label}</div>
-                </div>
-              ))}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <CircularProgress percentage={100} label="50+" subLabel="Speakers" delay={0.2} />
+              <CircularProgress percentage={85} label="20+" subLabel="Workshops" delay={0.4} />
+              <CircularProgress percentage={95} label="1K+" subLabel="Attendees" delay={0.6} />
+              <CircularProgress percentage={30} label="3" subLabel="Days Event" delay={0.8} />
             </div>
           </motion.div>
         </div>

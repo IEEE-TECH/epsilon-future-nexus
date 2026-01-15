@@ -3,9 +3,10 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import { ErrorBoundary } from './ErrorBoundary';
+import { Typewriter } from '@/components/ui/Typewriter';
+import { CountdownTimer } from '@/components/ui/CountdownTimer';
 import heroBg from '@/assets/hero-bg.jpg';
 
-// Lazy load 3D component
 const ThreeBackground = lazy(() =>
   import('./ThreeBackground').then(m => ({ default: m.ThreeBackground }))
 );
@@ -21,12 +22,10 @@ const Fallback = () => (
 const GlitchText = ({
   children,
   className = "",
-  as: Component = "span",
   intensity = 1
 }: {
   children: React.ReactNode;
   className?: string;
-  as?: any;
   intensity?: number;
 }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -34,11 +33,9 @@ const GlitchText = ({
 
   useEffect(() => {
     if (!isHovering) return;
-
     const glitchInterval = setInterval(() => {
       setGlitchFrame(prev => (prev + 1) % 10);
     }, 80);
-
     return () => clearInterval(glitchInterval);
   }, [isHovering]);
 
@@ -46,74 +43,56 @@ const GlitchText = ({
   const offset = 3 * intensity;
 
   return (
-    <Component
+    <span
       className={`relative inline-block cursor-pointer ${className}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => { setIsHovering(false); setGlitchFrame(0); }}
       style={{
-        textShadow: isGlitching
-          ? `${offset}px 0 #ff0040, -${offset}px 0 #00ff88`
-          : undefined,
-        transform: isGlitching
-          ? `translate(${Math.random() * 2 - 1}px, ${Math.random() * 2 - 1}px) skewX(${Math.random() * 3 - 1.5}deg)`
-          : undefined,
+        textShadow: isGlitching ? `${offset}px 0 #ff0040, -${offset}px 0 #00ff88` : undefined,
+        transform: isGlitching ? `translate(${Math.random() * 2 - 1}px, ${Math.random() * 2 - 1}px)` : undefined,
       }}
     >
       {children}
-
-      {/* Red glitch layer */}
       {isGlitching && (
-        <span
-          className="absolute inset-0 mix-blend-screen pointer-events-none"
-          style={{
-            color: '#ff0040',
-            opacity: 0.6,
-            transform: `translate(-${offset + Math.random() * 2}px, ${Math.random() * 2}px)`,
-            clipPath: `polygon(0 ${30 + glitchFrame * 4}%, 100% ${30 + glitchFrame * 4}%, 100% ${50 + glitchFrame * 3}%, 0 ${50 + glitchFrame * 3}%)`,
-          }}
-        >
-          {children}
-        </span>
+        <>
+          <span
+            className="absolute inset-0 mix-blend-screen pointer-events-none"
+            style={{
+              color: '#ff0040',
+              opacity: 0.6,
+              transform: `translate(-${offset}px, 0)`,
+              clipPath: `polygon(0 ${30 + glitchFrame * 4}%, 100% ${30 + glitchFrame * 4}%, 100% ${50 + glitchFrame * 3}%, 0 ${50 + glitchFrame * 3}%)`,
+            }}
+          >
+            {children}
+          </span>
+          <span
+            className="absolute inset-0 mix-blend-screen pointer-events-none"
+            style={{
+              color: '#00ff88',
+              opacity: 0.6,
+              transform: `translate(${offset}px, 0)`,
+              clipPath: `polygon(0 ${55 + glitchFrame * 2}%, 100% ${55 + glitchFrame * 2}%, 100% ${75 + glitchFrame}%, 0 ${75 + glitchFrame}%)`,
+            }}
+          >
+            {children}
+          </span>
+        </>
       )}
-
-      {/* Cyan glitch layer */}
-      {isGlitching && (
-        <span
-          className="absolute inset-0 mix-blend-screen pointer-events-none"
-          style={{
-            color: '#00ff88',
-            opacity: 0.6,
-            transform: `translate(${offset + Math.random() * 2}px, -${Math.random() * 2}px)`,
-            clipPath: `polygon(0 ${55 + glitchFrame * 2}%, 100% ${55 + glitchFrame * 2}%, 100% ${75 + glitchFrame}%, 0 ${75 + glitchFrame}%)`,
-          }}
-        >
-          {children}
-        </span>
-      )}
-
-      {/* Scan line */}
-      {isGlitching && (
-        <span
-          className="absolute left-0 right-0 h-0.5 bg-primary/50 pointer-events-none"
-          style={{ top: `${40 + glitchFrame * 4}%` }}
-        />
-      )}
-    </Component>
+    </span>
   );
 };
 
-// Loki-style glitch epsilon component for hero
+// Glitch epsilon component
 const GlitchEpsilon = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [glitchFrame, setGlitchFrame] = useState(0);
 
   useEffect(() => {
     if (!isHovering) return;
-
     const glitchInterval = setInterval(() => {
       setGlitchFrame(prev => (prev + 1) % 10);
     }, 80);
-
     return () => clearInterval(glitchInterval);
   }, [isHovering]);
 
@@ -140,47 +119,34 @@ const GlitchEpsilon = () => {
         ε
       </span>
 
-      {/* Red glitch layer */}
       <span
         className="font-display text-[100px] md:text-[140px] lg:text-[180px] font-bold leading-none absolute inset-0 flex items-center justify-center mix-blend-screen pointer-events-none"
         style={{
           color: '#ff0040',
           opacity: isGlitching ? 0.7 : 0,
-          transform: `translate(${isGlitching ? -8 + Math.random() * 4 : 0}px, ${isGlitching ? 2 : 0}px)`,
-          clipPath: isGlitching ? `polygon(0 ${20 + glitchFrame * 5}%, 100% ${20 + glitchFrame * 5}%, 100% ${50 + glitchFrame * 3}%, 0 ${50 + glitchFrame * 3}%)` : 'none',
+          transform: `translate(${isGlitching ? -8 : 0}px, 0)`,
         }}
       >
         ε
       </span>
 
-      {/* Cyan glitch layer */}
       <span
         className="font-display text-[100px] md:text-[140px] lg:text-[180px] font-bold leading-none absolute inset-0 flex items-center justify-center mix-blend-screen pointer-events-none"
         style={{
           color: '#00ff88',
           opacity: isGlitching ? 0.7 : 0,
-          transform: `translate(${isGlitching ? 8 - Math.random() * 4 : 0}px, ${isGlitching ? -2 : 0}px)`,
-          clipPath: isGlitching ? `polygon(0 ${50 + glitchFrame * 2}%, 100% ${50 + glitchFrame * 2}%, 100% ${80 + glitchFrame}%, 0 ${80 + glitchFrame}%)` : 'none',
+          transform: `translate(${isGlitching ? 8 : 0}px, 0)`,
         }}
       >
         ε
       </span>
 
-      {/* Glitch horizontal bars */}
       {isGlitching && (
         <>
           <div className="absolute left-0 right-0 h-2 bg-primary/40 pointer-events-none" style={{ top: `${30 + glitchFrame * 4}%` }} />
           <div className="absolute left-0 right-0 h-1 bg-cyan-400/60 pointer-events-none" style={{ top: `${60 + glitchFrame * 2}%` }} />
         </>
       )}
-
-      <div
-        className="absolute inset-0 -m-8 rounded-full pointer-events-none transition-opacity duration-300"
-        style={{
-          background: 'radial-gradient(ellipse at center, rgba(0, 184, 212, 0.2) 0%, transparent 60%)',
-          opacity: isHovering ? 1 : 0.5,
-        }}
-      />
     </div>
   );
 };
@@ -192,6 +158,9 @@ export const Hero = () => {
     const timer = setTimeout(() => setShow3D(true), 500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Event date: February 6, 2026
+  const eventDate = new Date('2026-02-06T09:00:00');
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -214,29 +183,27 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-8"
+          className="mb-6"
         >
           <span className="inline-block px-5 py-2.5 rounded-full border border-primary/20 bg-background/50 text-primary text-xs font-medium tracking-[0.2em] uppercase backdrop-blur-sm">
             IEEE Annual Flagship Symposium
           </span>
         </motion.div>
 
-        {/* Glitch Epsilon Symbol */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-6 flex justify-center"
+          className="mb-4 flex justify-center"
         >
           <GlitchEpsilon />
         </motion.div>
 
-        {/* EPSILON 2026 with glitch effect */}
         <motion.h1
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 tracking-tight"
+          className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 tracking-tight"
         >
           <GlitchText className="text-foreground" intensity={1.5}>EPSILON</GlitchText>
           {" "}
@@ -247,19 +214,20 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-lg md:text-xl text-muted-foreground mb-3 max-w-xl mx-auto"
+          className="text-lg md:text-xl text-muted-foreground mb-6 max-w-xl mx-auto"
         >
-          Exploring the Future of Intelligent Systems
+          <Typewriter text="Exploring the Future of Intelligent Systems" speed={40} delay={800} />
         </motion.p>
 
-        <motion.p
+        {/* Countdown Timer */}
+        <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="text-base text-primary/80 tracking-[0.15em] mb-10"
+          className="mb-8"
         >
-          6 – 8 FEB 2026
-        </motion.p>
+          <CountdownTimer targetDate={eventDate} />
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 15 }}

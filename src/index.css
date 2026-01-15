@@ -16,7 +16,7 @@
     --popover: 220 25% 8%;
     --popover-foreground: 210 20% 95%;
 
-    /* Refined Cyan Primary - Less saturated */
+    /* Refined Cyan Primary */
     --primary: 185 85% 50%;
     --primary-light: 185 80% 60%;
     --primary-dark: 185 90% 40%;
@@ -80,6 +80,17 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    cursor: none;
+  }
+
+  /* Hide default cursor on desktop */
+  @media (min-width: 768px) {
+
+    *,
+    *::before,
+    *::after {
+      cursor: none !important;
+    }
   }
 
   h1,
@@ -95,7 +106,7 @@
 
 @layer components {
 
-  /* Glass Card - Cleaner */
+  /* Glass Card */
   .glass-card {
     @apply relative overflow-hidden rounded-xl border border-border/50 transition-all duration-200;
     background: var(--gradient-card);
@@ -107,13 +118,13 @@
     box-shadow: var(--glow-primary);
   }
 
-  /* Neon Text - Subtle */
+  /* Neon Text */
   .neon-text {
     @apply text-primary;
     text-shadow: 0 0 30px hsl(185 85% 50% / 0.4);
   }
 
-  /* Glow Border - Lighter */
+  /* Glow Border */
   .glow-border {
     @apply relative;
   }
@@ -130,7 +141,7 @@
     @apply opacity-100;
   }
 
-  /* Grid Background - Very subtle */
+  /* Grid Background */
   .grid-background {
     background-image:
       linear-gradient(hsl(185 85% 50% / 0.02) 1px, transparent 1px),
@@ -142,6 +153,17 @@
   .section-divider {
     @apply h-px w-full;
     background: linear-gradient(90deg, transparent, hsl(185 85% 50% / 0.3), transparent);
+  }
+
+  /* Perspective for 3D cards */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  /* Backface hidden for flip cards */
+  .backface-hidden {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 }
 
@@ -175,7 +197,7 @@
   }
 }
 
-/* Scrollbar - Minimal */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
