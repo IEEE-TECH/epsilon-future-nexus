@@ -1,10 +1,15 @@
 import { motion } from 'framer-motion';
 
+import csLogo from '/src/assets/cs-logo.png';
+import mttsLogo from '/src/assets/mtts-logo.png';
+import wieLogo from '/src/assets/wie-logo.png';
+import grssLogo from '/src/assets/grss-logo.svg';
+
 const logos = [
-    { name: 'Computer Society', src: '/src/assets/cs-logo.png' },
-    { name: 'MTTS', src: '/src/assets/mtts-logo.png' },
-    { name: 'WIE', src: '/src/assets/wie-logo.png' },
-    { name: 'GRSS', src: '/src/assets/grss-logo.svg' },
+    { name: 'Computer Society', src: csLogo },
+    { name: 'MTTS', src: mttsLogo },
+    { name: 'WIE', src: wieLogo },
+    { name: 'GRSS', src: grssLogo },
 ];
 
 export const Partners = () => {
