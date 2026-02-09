@@ -47,14 +47,15 @@ export const Theme = () => {
               EPSILON 2026 Theme
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-              <DecryptedText text="Intelligent Systems" /> <br />
+              <DecryptedText text="Dimensions of Discovery" /> <br />
               <span className="text-primary">
-                <DecryptedText text="Shaping Tomorrow" />
+                <DecryptedText text="Unveiling Future" />
               </span>
             </h2>
             <p className="text-base text-muted-foreground mb-6 leading-relaxed">
-              This year's symposium explores the transformative power of artificial intelligence,
-              machine learning, and autonomous systems across industries—from healthcare to cybersecurity.
+              The theme <em>Dimensions of Discovery</em> represents the exploration of emerging technologies across
+              multiple dimensions of science, engineering, and innovation. It highlights advancements in
+              Computing, Cybersecurity, Power Electronics, Holistic Well-Being, and Earth Observation.
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

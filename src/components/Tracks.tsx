@@ -1,23 +1,138 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Monitor, Users, Radio } from 'lucide-react';
+import { ShieldCheck, Zap, Heart, Globe, Calendar, Clock, MapPin } from 'lucide-react';
 import { TiltCard } from '@/components/ui/TiltCard';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
 
 const tracks = [
   {
-    icon: Monitor,
-    title: 'Computer Society',
-    description: 'Advancing the theory, practice, and application of computer and information processing technology.',
+    id: 'cs',
+    icon: ShieldCheck,
+    title: 'Cyber Security',
+    society: 'Computer Society',
+    description: 'A critical pillar in today’s interconnected world, focusing on modern digital challenges and defense strategies.',
+    timeline: [
+      {
+        day: 'Day 1: Feb 13',
+        time: '10:00 AM - 11:30 AM',
+        type: 'Talk Session',
+        title: 'Inside Modern Cyber Attacks',
+        topics: ['Real attack chains', 'Attacker mindset vs Defender response', 'Minimal tools, maximum insight'],
+      },
+      {
+        day: 'Day 2: Feb 14',
+        time: '10:00 AM - 11:30 AM',
+        type: 'Hands-On Workshop',
+        title: 'Web App Penetration Testing',
+        topics: ['OWASP Top 10', 'Burp Suite hands-on', 'Vulnerability exploitation', 'Defensive takeaways'],
+      },
+      {
+        day: 'Day 3: Feb 15',
+        time: '10:00 AM - 11:30 AM',
+        type: 'Panel Discussion',
+        title: 'The Future of AI in Cyber Defense',
+        topics: ['AI arms race in cyber defense', 'Agentic AI response systems', 'Human oversight vs Machine-speed attacks'],
+      },
+    ]
   },
   {
-    icon: Users,
-    title: 'Women in Engineering',
-    description: 'Inspiring, engaging, and advancing women in technology and engineering worldwide.',
+    id: 'mtt-s',
+    icon: Zap,
+    title: 'Power Electronics',
+    society: 'MTT-S',
+    description: 'Enabling efficient power conversion and management for renewable energy, EVs, and smart grids.',
+    timeline: [
+      {
+        day: 'Day 1: Feb 13',
+        time: '12:00 PM - 1:30 PM',
+        type: 'Talk Session',
+        title: 'Smart BMS for Electric Vehicles',
+        topics: ['BMS basics & Power electronics', 'Safety, thermal & fast-charging', 'AI-enabled BMS trends'],
+      },
+      {
+        day: 'Day 2: Feb 14',
+        time: '12:00 PM - 1:30 PM',
+        type: 'Hands-On Workshop',
+        title: 'DC–DC Converters with LTSpice',
+        topics: ['Buck & Boost converter design', 'Ripple & efficiency analysis', 'Simulation basics'],
+      },
+      {
+        day: 'Day 3: Feb 15',
+        time: '12:00 PM - 1:30 PM',
+        type: 'Panel Discussion',
+        title: 'Future of EV Power Electronics',
+        topics: ['Evolution of power electronics', 'Wide bandgap devices', 'Industry skills & expectations'],
+      },
+    ]
   },
   {
-    icon: Radio,
-    title: 'MTT-S',
-    description: 'Microwave theory and techniques—pushing the boundaries of wireless and RF technologies.',
+    id: 'wie',
+    icon: Heart,
+    title: 'Holistic Health',
+    society: 'WIE',
+    description: 'Addressing physical, mental, and emotional well-being across genders and life stages.',
+    timeline: [
+      {
+        day: 'Day 1: Feb 13',
+        time: '2:00 PM - 3:30 PM',
+        type: 'Talk Session',
+        title: 'Inclusive Health Awareness',
+        topics: ['Preventive Healthcare', 'Mental Health across life stages', 'Gender-sensitive awareness'],
+      },
+      {
+        day: 'Day 2: Feb 14',
+        time: '2:00 PM - 3:30 PM',
+        type: 'Hands-On Workshop',
+        title: 'Designing Ayurvedic Wellness',
+        topics: ['Understanding Doshas', 'Personalized daily routines', 'Home remedies'],
+      },
+      {
+        day: 'Day 3: Feb 15',
+        time: '2:00 PM - 3:30 PM',
+        type: 'Panel Discussion',
+        title: 'Balancing Well-being & Career',
+        topics: ['Managing expectations', 'Handling demanding environments', 'Sustaining motivation'],
+      },
+    ]
+  },
+  {
+    id: 'grss',
+    icon: Globe,
+    title: 'Remote Sensing',
+    society: 'GRSS',
+    description: 'Exploring the evolution of sensors for precise Earth observation and geoscience.',
+    timeline: [
+      {
+        day: 'Day 1: Feb 13',
+        time: '4:00 PM - 5:30 PM',
+        type: 'Talk Session',
+        title: 'Evolution of Sensors',
+        topics: ['Multispectral to Hyperspectral', 'SAR principles', 'Optical vs Radar sensors'],
+      },
+      {
+        day: 'Day 2: Feb 14',
+        time: '4:00 PM - 5:30 PM',
+        type: 'Hands-On Workshop',
+        title: 'Google Earth Engine',
+        topics: ['Accessing Landsat/Sentinel data', 'Visualizing satellite imagery', 'Basic data analysis'],
+      },
+      {
+        day: 'Day 3: Feb 15',
+        time: '4:00 PM - 5:30 PM',
+        type: 'Panel Discussion',
+        title: 'Next-Gen Earth Observation',
+        topics: ['AI & ML in remote sensing', 'Data accuracy challenges', 'Careers in geoscience'],
+      },
+    ]
   },
 ];
 
@@ -41,39 +156,94 @@ export const Tracks = () => {
             Explore Our <span className="text-primary">Tracks</span>
           </h2>
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto">
-            Three specialized tracks powered by IEEE societies, each offering unique perspectives.
+            Four specialized tracks powered by IEEE societies, covering everything from Cyber Security to Earth Observation.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: '1000px' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" style={{ perspective: '1000px' }}>
           {tracks.map((track, index) => (
             <motion.div
-              key={track.title}
+              key={track.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
             >
-              <TiltCard className="h-full">
-                <div className="glass-card p-6 md:p-8 h-full bg-gradient-to-br from-card/80 to-card/40 border-border/50 group">
-                  <div className="mb-6">
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
-                      <track.icon className="w-7 h-7 text-primary" />
-                    </div>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="h-full cursor-pointer">
+                    <TiltCard className="h-full">
+                      <div className="p-6 h-full bg-black/40 backdrop-blur-md border border-white/5 hover:border-white/10 transition-all duration-300 rounded-xl group flex flex-col hover:bg-black/50 hover:shadow-2xl hover:shadow-primary/5">
+                        <div className="mb-6 flex justify-between items-start">
+                          <div className="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors border border-primary/10">
+                            <track.icon className="w-6 h-6 text-primary/80 group-hover:text-primary transition-colors" />
+                          </div>
+                          <Badge variant="outline" className="text-[10px] border-white/10 text-muted-foreground bg-transparent">
+                            {track.society}
+                          </Badge>
+                        </div>
+
+                        <h3 className="text-xl font-medium text-foreground mb-3 tracking-tight">
+                          {track.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground/80 mb-6 leading-relaxed flex-grow font-light">
+                          {track.description}
+                        </p>
+
+                        <Button variant="ghost" className="w-full border border-white/5 hover:border-primary/20 hover:bg-primary/5 hover:text-primary mt-auto text-xs uppercase tracking-widest font-medium">
+                          View Timeline
+                        </Button>
+                      </div>
+                    </TiltCard>
                   </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl bg-card/95 backdrop-blur-xl border-primary/20">
+                  <DialogHeader>
+                    <div className="flex items-center gap-4 mb-2">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <track.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+                          {track.title}
+                        </DialogTitle>
+                        <DialogDescription className="text-primary/80 font-medium">
+                          {track.society}
+                        </DialogDescription>
+                      </div>
+                    </div>
+                  </DialogHeader>
 
-                  <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                    {track.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                    {track.description}
-                  </p>
-
-                  <Button variant="ghost" className="w-full border border-border/50 hover:border-primary/30 hover:bg-primary/5">
-                    View Track
-                  </Button>
-                </div>
-              </TiltCard>
+                  <ScrollArea className="max-h-[60vh] pr-4">
+                    <div className="space-y-6 py-4">
+                      {track.timeline.map((event, i) => (
+                        <div key={i} className="relative pl-6 border-l border-border/50 pb-2 last:pb-0">
+                          <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-primary" />
+                          <div className="mb-1 flex items-center gap-3 text-xs text-muted-foreground">
+                            <span className="flex items-center gap-1 bg-secondary/50 px-2 py-0.5 rounded text-primary">
+                              <Calendar className="w-3 h-3" /> {event.day}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" /> {event.time}
+                            </span>
+                          </div>
+                          <h4 className="text-lg font-semibold text-foreground mt-1 mb-1">{event.title}</h4>
+                          <span className="inline-block text-xs font-medium text-primary/90 mb-2 border border-primary/20 px-2 py-0.5 rounded">
+                            {event.type}
+                          </span>
+                          <ul className="list-disc list-inside space-y-1 mt-2">
+                            {event.topics.map((topic, tIndex) => (
+                              <li key={tIndex} className="text-sm text-muted-foreground pl-1">
+                                {topic}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </DialogContent>
+              </Dialog>
             </motion.div>
           ))}
         </div>

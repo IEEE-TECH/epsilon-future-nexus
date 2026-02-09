@@ -1,9 +1,9 @@
-import { Linkedin, Instagram, Twitter } from 'lucide-react';
+import { Linkedin, Instagram, Globe } from 'lucide-react';
 
 const socialLinks = [
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Twitter, href: '#', label: 'X (Twitter)' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/ieee-gst/', label: 'LinkedIn' },
+  { icon: Instagram, href: 'https://www.instagram.com/ieeesiesgst/', label: 'Instagram' },
+  { icon: Globe, href: 'https://ieeesiesgst.siesgst.edu.in/', label: 'Website' },
 ];
 
 const footerLinks = [
@@ -51,6 +51,8 @@ export const Footer = () => {
               <a
                 key={social.label}
                 href={social.href}
+                target="_blank"
+                rel="noreferrer"
                 aria-label={social.label}
                 className="w-9 h-9 rounded-full border border-border/50 bg-secondary/30 flex items-center justify-center hover:border-primary/30 hover:bg-primary/10 transition-all duration-200"
               >

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { TiltCard } from '@/components/ui/TiltCard';
+
 import { useState } from 'react';
 
 const speakers = [
@@ -35,65 +35,41 @@ const speakers = [
   },
 ];
 
-// 3D Flip Card Component
-const FlipCard = ({ speaker, index }: { speaker: typeof speakers[0]; index: number }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-
+// Subtle Premium Card Component
+const SpeakerCard = ({ speaker, index }: { speaker: typeof speakers[0]; index: number }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="h-[320px] perspective-1000"
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
+      className="group relative h-[400px] overflow-hidden rounded-xl bg-black/40 backdrop-blur-md border border-white/5 hover:border-white/10 transition-all duration-500"
     >
-      <motion.div
-        className="relative w-full h-full"
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-        style={{ transformStyle: "preserve-3d" }}
-      >
-        {/* Front */}
-        <div
-          className="absolute inset-0 backface-hidden"
-          style={{ backfaceVisibility: "hidden" }}
-        >
-          <div className="glass-card p-5 h-full bg-gradient-to-br from-card/80 to-card/40 border-border/50">
-            <div className="relative mb-5 overflow-hidden rounded-lg">
-              <div className="aspect-square">
-                <img
-                  src={speaker.image}
-                  alt={speaker.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <h3 className="text-base font-semibold text-foreground mb-1">{speaker.name}</h3>
-            <p className="text-primary text-xs mb-0.5">{speaker.role}</p>
-            <p className="text-muted-foreground text-xs">{speaker.organization}</p>
-          </div>
-        </div>
+      <div className="absolute inset-0">
+        <img
+          src={speaker.image}
+          alt={speaker.name}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+      </div>
 
-        {/* Back */}
-        <div
-          className="absolute inset-0 backface-hidden"
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-        >
-          <div className="glass-card p-6 h-full bg-gradient-to-br from-primary/10 to-card/80 border-primary/30 flex flex-col justify-center items-center text-center">
-            <h3 className="text-lg font-semibold text-primary mb-2">{speaker.name}</h3>
-            <p className="text-sm text-muted-foreground mb-4">{speaker.bio}</p>
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 text-primary text-sm hover:bg-primary/30 transition-colors"
-            >
-              <Linkedin size={16} />
-              Connect
-            </a>
-          </div>
+      <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+        <h3 className="text-xl font-bold text-white mb-1">{speaker.name}</h3>
+        <p className="text-primary font-medium text-sm mb-2">{speaker.role}</p>
+        <p className="text-gray-400 text-xs mb-4">{speaker.organization}</p>
+
+        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+          <p className="text-gray-300 text-sm mb-4 line-clamp-2">{speaker.bio}</p>
+          <a
+            href="#"
+            className="inline-flex items-center gap-2 text-white hover:text-primary transition-colors text-sm font-medium"
+          >
+            <Linkedin size={16} />
+            Connect via LinkedIn
+          </a>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 };
@@ -124,7 +100,7 @@ export const Speakers = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {speakers.map((speaker, index) => (
-            <FlipCard key={speaker.name} speaker={speaker} index={index} />
+            <SpeakerCard key={speaker.name} speaker={speaker} index={index} />
           ))}
         </div>
 

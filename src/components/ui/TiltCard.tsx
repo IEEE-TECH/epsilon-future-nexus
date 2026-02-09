@@ -7,71 +7,10 @@ interface TiltCardProps {
     intensity?: number;
 }
 
-export const TiltCard = ({ children, className = "", intensity = 15 }: TiltCardProps) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const [isMobile, setIsMobile] = useState(false);
-
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseX = useSpring(x, { stiffness: 500, damping: 30 });
-    const mouseY = useSpring(y, { stiffness: 500, damping: 30 });
-
-    const rotateX = useTransform(mouseY, [-0.5, 0.5], [intensity, -intensity]);
-    const rotateY = useTransform(mouseX, [-0.5, 0.5], [-intensity, intensity]);
-
-    useEffect(() => {
-        // Disable tilt on mobile/touch devices
-        const checkMobile = () => {
-            setIsMobile(window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window);
-        };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isMobile || !ref.current) return;
-
-        const rect = ref.current.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-
-        const mouseXPos = e.clientX - rect.left;
-        const mouseYPos = e.clientY - rect.top;
-
-        const xPct = mouseXPos / width - 0.5;
-        const yPct = mouseYPos / height - 0.5;
-
-        x.set(xPct);
-        y.set(yPct);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
-    // On mobile, just render children without tilt effect
-    if (isMobile) {
-        return <div className={className}>{children}</div>;
-    }
-
+export const TiltCard = ({ children, className = "" }: TiltCardProps) => {
     return (
-        <motion.div
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{
-                rotateX,
-                rotateY,
-                transformStyle: "preserve-3d",
-            }}
-            className={`relative ${className}`}
-        >
-            <div style={{ transform: "translateZ(50px)" }} className="h-full">
-                {children}
-            </div>
-        </motion.div>
+        <div className={`relative ${className}`}>
+            {children}
+        </div>
     );
 };

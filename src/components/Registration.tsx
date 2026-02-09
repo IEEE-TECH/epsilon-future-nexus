@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Award } from 'lucide-react';
+import { MagneticButton } from '@/components/ui/MagneticButton';
+import { RegistrationModal } from '@/components/RegistrationModal';
 
 export const Registration = () => {
   return (
@@ -16,7 +18,7 @@ export const Registration = () => {
           transition={{ duration: 0.5 }}
           className="max-w-3xl mx-auto"
         >
-          <div className="glass-card p-8 md:p-12 text-center">
+          <div className="bg-black/20 backdrop-blur-sm border border-white/5 rounded-2xl p-8 md:p-12 text-center">
             <span className="inline-block px-4 py-2 rounded-full border border-border bg-secondary/30 text-primary text-xs font-medium tracking-[0.15em] uppercase mb-6">
               Join Us
             </span>
@@ -34,7 +36,7 @@ export const Registration = () => {
               <div className="p-5 rounded-lg bg-secondary/30 border border-border/50">
                 <Calendar className="w-6 h-6 text-primary mx-auto mb-3" />
                 <h4 className="text-sm font-semibold text-foreground mb-1">Event Dates</h4>
-                <p className="text-muted-foreground text-xs">February 6-8, 2026</p>
+                <p className="text-muted-foreground text-xs">February 13-15, 2026</p>
               </div>
               <div className="p-5 rounded-lg bg-secondary/30 border border-border/50">
                 <MapPin className="w-6 h-6 text-primary mx-auto mb-3" />
@@ -49,9 +51,13 @@ export const Registration = () => {
             </div>
 
             {/* CTA */}
-            <Button variant="hero" size="xl">
-              Register for EPSILON 2026
-            </Button>
+            <div className="flex justify-center">
+              <RegistrationModal trigger={
+                <MagneticButton className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold text-lg hover:bg-primary/90 transition-colors shadow-[0_0_20px_rgba(0,184,212,0.3)] hover:shadow-[0_0_30px_rgba(0,184,212,0.5)]">
+                  Register for EPSILON 2026
+                </MagneticButton>
+              } />
+            </div>
 
             <p className="text-xs text-muted-foreground mt-5">
               Early bird registration closes December 31, 2025

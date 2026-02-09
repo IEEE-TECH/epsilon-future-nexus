@@ -12,6 +12,10 @@ import { HackerModeToggle } from "@/components/ui/HackerModeToggle";
 import { FloatingActionButton } from "@/components/ui/FloatingActionButton";
 import { LenisProvider } from "@/components/ui/LenisProvider";
 
+import { Partners } from "@/components/Partners";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -27,10 +31,20 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={
+                <>
+                  <Navbar />
+                  <main>
+                    <Hero />
+                    <Partners />
+                    <Index />
+                  </main>
+                </>
+              } />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
+
         </SoundProvider>
       </LenisProvider>
     </TooltipProvider>

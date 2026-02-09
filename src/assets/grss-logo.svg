@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <defs>
+    <style>
+      .text { font-family: Arial, sans-serif; font-weight: bold; }
+    </style>
+  </defs>
+  <!-- Globe background (simplified) -->
+  <circle cx="150" cy="100" r="90" fill="none" stroke="#005695" stroke-width="2" opacity="0.3"/>
+  <path d="M150 10 L150 190 M60 100 L240 100" stroke="#005695" stroke-width="2" opacity="0.3"/>
+  <ellipse cx="150" cy="100" rx="90" ry="40" fill="none" stroke="#005695" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Main Blue Ring/Oval -->
+  <ellipse cx="150" cy="100" rx="140" ry="90" fill="none" stroke="#005695" stroke-width="25"/>
+  
+  <!-- Arrow -->
+  <path d="M50 80 L30 60 L80 60" fill="none" stroke="#005695" stroke-width="15" stroke-linejoin="round"/>
+  <polygon points="20,60 50,45 50,75" fill="#005695"/>
+
+  <!-- Text: IEEE -->
+  <text x="150" y="50" text-anchor="middle" fill="#005695" font-size="30" class="text" font-weight="900" letter-spacing="10">IEEE</text>
+  
+  <!-- Text: GRSS -->
+  <text x="150" y="125" text-anchor="middle" fill="#005695" font-size="80" class="text" font-weight="900" letter-spacing="0">GRSS</text>
+  
+  <!-- Text: Full Name (Curved approximation) -->
+  <path id="curve" d="M 40,140 Q 150,190 260,140" fill="transparent"/>
+  <text width="300">
+    <textPath href="#curve" startOffset="50%" text-anchor="middle" fill="#005695" font-size="14" class="text" font-weight="bold">
+      Geoscience and Remote Sensing Society
+    </textPath>
+  </text>
+</svg>

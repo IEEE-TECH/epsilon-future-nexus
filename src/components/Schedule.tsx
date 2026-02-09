@@ -5,7 +5,7 @@ import { TiltCard } from '@/components/ui/TiltCard';
 const schedule = [
   {
     day: 'Day 1',
-    date: 'February 6, 2026',
+    date: 'February 13, 2026',
     title: 'Keynotes & Talks',
     icon: Mic,
     events: [
@@ -17,7 +17,7 @@ const schedule = [
   },
   {
     day: 'Day 2',
-    date: 'February 7, 2026',
+    date: 'February 14, 2026',
     title: 'Hands-on Workshops',
     icon: Wrench,
     events: [
@@ -29,7 +29,7 @@ const schedule = [
   },
   {
     day: 'Day 3',
-    date: 'February 8, 2026',
+    date: 'February 15, 2026',
     title: 'Panels & Closing',
     icon: MessageSquare,
     events: [
@@ -74,32 +74,30 @@ export const Schedule = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
             >
-              <TiltCard className="h-full" intensity={8}>
-                <div className="glass-card p-6 md:p-8 h-full bg-gradient-to-br from-card/80 to-card/40 border-border/50 group">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
-                      <day.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-primary">{day.day}</h3>
-                      <p className="text-muted-foreground text-xs">{day.date}</p>
-                    </div>
+              <div className="p-6 md:p-8 h-full bg-black/40 backdrop-blur-md border border-white/5 hover:border-white/10 transition-all duration-300 rounded-xl group hover:bg-black/50 hover:shadow-2xl hover:shadow-primary/5">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-lg bg-primary/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors border border-primary/10">
+                    <day.icon className="w-6 h-6 text-primary/80 group-hover:text-primary transition-colors" />
                   </div>
-
-                  <h4 className="text-xl font-semibold text-foreground mb-5 group-hover:text-primary transition-colors">
-                    {day.title}
-                  </h4>
-
-                  <ul className="space-y-3">
-                    {day.events.map((event) => (
-                      <li key={event} className="flex items-center gap-3 text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-                        <span className="text-sm">{event}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div>
+                    <h3 className="text-lg font-semibold text-primary">{day.day}</h3>
+                    <p className="text-muted-foreground text-xs">{day.date}</p>
+                  </div>
                 </div>
-              </TiltCard>
+
+                <h4 className="text-xl font-medium text-foreground mb-5 tracking-tight group-hover:text-primary transition-colors">
+                  {day.title}
+                </h4>
+
+                <ul className="space-y-3">
+                  {day.events.map((event) => (
+                    <li key={event} className="flex items-center gap-3 text-muted-foreground/80 font-light">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
+                      <span className="text-sm">{event}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           ))}
         </div>

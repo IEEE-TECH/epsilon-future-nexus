@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import { RegistrationModal } from '@/components/RegistrationModal';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -11,61 +12,64 @@ const navLinks = [
   { name: 'Schedule', href: '#schedule' },
 ];
 
-// Loki-style glitch logo component
-const GlitchLogo = () => {
-  const [glitchFrame, setGlitchFrame] = useState(0);
+// Logo paths for all 5 societies
+const societyLogos = [
+  { name: 'Computer Society', src: '/src/assets/cs-logo.png' },
+  { name: 'MTTS', src: '/src/assets/mtts-logo.png' },
+  { name: 'WIE', src: '/src/assets/wie-logo.png' },
+  { name: 'GRSS', src: '/src/assets/grss-logo.svg' },
+];
+
+// Animated logo component with cycling logos and glitch text
+const Logo = () => {
+  const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
+  const [isGlitching, setIsGlitching] = useState(false);
 
   useEffect(() => {
-    const glitchInterval = setInterval(() => {
-      setGlitchFrame(prev => (prev + 1) % 10);
-    }, 100);
-    return () => clearInterval(glitchInterval);
+    const logoInterval = setInterval(() => {
+      setIsGlitching(true);
+      setTimeout(() => {
+        setCurrentLogoIndex((prev) => (prev + 1) % societyLogos.length);
+        setIsGlitching(false);
+      }, 200);
+    }, 5000);
+
+    return () => clearInterval(logoInterval);
   }, []);
 
-  const isGlitching = glitchFrame < 3;
-
   return (
-    <a href="#" className="flex items-center gap-2 group relative">
-      <div className="relative w-8 h-8 flex items-center justify-center">
-        <span
-          className="text-2xl font-bold text-primary absolute"
-          style={{
-            textShadow: '0 0 10px rgba(0, 184, 212, 0.8), 0 0 20px rgba(0, 184, 212, 0.4)',
-            transform: isGlitching ? `translate(${Math.random() * 2 - 1}px, ${Math.random() * 2 - 1}px)` : 'none',
-          }}
-        >
-          ε
-        </span>
-        <span
-          className="text-2xl font-bold absolute mix-blend-screen"
-          style={{
-            color: '#ff0040',
-            opacity: isGlitching ? 0.8 : 0,
-            transform: `translate(${isGlitching ? -3 : 0}px, ${isGlitching ? 1 : 0}px)`,
-          }}
-        >
-          ε
-        </span>
-        <span
-          className="text-2xl font-bold absolute mix-blend-screen"
-          style={{
-            color: '#00ff88',
-            opacity: isGlitching ? 0.8 : 0,
-            transform: `translate(${isGlitching ? 3 : 0}px, ${isGlitching ? -1 : 0}px)`,
-          }}
-        >
-          ε
-        </span>
+    <a href="#" className="flex items-center gap-3 group">
+      <div className="relative h-10 w-14 flex items-center justify-center overflow-hidden">
+        {societyLogos.map((logo, index) => (
+          <motion.img
+            key={logo.name}
+            src={logo.src}
+            alt={logo.name}
+            className="absolute h-full w-auto object-contain"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{
+              opacity: currentLogoIndex === index ? 1 : 0,
+              y: currentLogoIndex === index ? 0 : -20,
+            }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          />
+        ))}
       </div>
-
-      <div className="relative overflow-hidden">
+      <div className="flex flex-col">
         <span
-          className="text-base font-semibold text-foreground tracking-wide"
+          className={`text-xl font-bold text-foreground leading-none tracking-tight transition-all duration-100 ${isGlitching ? 'text-primary animate-pulse' : ''
+            }`}
           style={{
-            textShadow: isGlitching ? '2px 0 #ff0040, -2px 0 #00ff88' : 'none',
+            textShadow: isGlitching
+              ? '2px 0 #ff0040, -2px 0 #00ff88, 0 0 10px rgba(0, 184, 212, 0.5)'
+              : 'none',
+            transform: isGlitching ? `translate(${Math.random() * 2 - 1}px, 0)` : 'none',
           }}
         >
           EPSILON
+        </span>
+        <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest">
+          {societyLogos[currentLogoIndex].name}
         </span>
       </div>
     </a>
@@ -116,13 +120,13 @@ export const Navbar = () => {
 
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${isScrolled
-            ? 'bg-background/90 backdrop-blur-md border-b border-border/50'
-            : 'bg-transparent'
+          ? 'bg-background/90 backdrop-blur-md border-b border-border/50'
+          : 'bg-transparent'
           }`}
       >
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            <GlitchLogo />
+            <Logo />
 
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
@@ -130,8 +134,8 @@ export const Navbar = () => {
                   key={link.name}
                   href={link.href}
                   className={`relative text-sm font-medium transition-colors duration-200 ${activeSection === link.href.replace('#', '')
-                      ? 'text-primary'
-                      : 'text-muted-foreground hover:text-primary'
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-primary'
                     }`}
                 >
                   {link.name}
@@ -172,16 +176,18 @@ export const Navbar = () => {
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`text-sm font-medium py-2 ${activeSection === link.href.replace('#', '')
-                        ? 'text-primary'
-                        : 'text-muted-foreground'
+                      ? 'text-primary'
+                      : 'text-muted-foreground'
                       }`}
                   >
                     {link.name}
                   </a>
                 ))}
-                <Button variant="default" size="sm" className="mt-3">
-                  Register Now
-                </Button>
+                <RegistrationModal trigger={
+                  <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                    Register Now
+                  </Button>
+                } />
               </div>
             </motion.div>
           )}

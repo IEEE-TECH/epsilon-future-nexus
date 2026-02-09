@@ -1,5 +1,4 @@
-import { Navbar } from '@/components/Navbar';
-import { Hero } from '@/components/Hero';
+
 import { About } from '@/components/About';
 import { Theme } from '@/components/Theme';
 import { Tracks } from '@/components/Tracks';
@@ -10,9 +9,7 @@ import { Footer } from '@/components/Footer';
 
 const Index = () => {
   return (
-    <main className="min-h-screen bg-background overflow-x-hidden">
-      <Navbar />
-      <Hero />
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <About />
       <Theme />
       <Tracks />
@@ -20,7 +17,7 @@ const Index = () => {
       <Schedule />
       <Registration />
       <Footer />
-    </main>
+    </div>
   );
 };
 
