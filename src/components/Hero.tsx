@@ -106,7 +106,11 @@ export const Hero = () => {
             </div>
 
             <div className="flex flex-wrap gap-6">
-              <a href="#register">
+              <a
+                href="https://forms.gle/iqUVfFhtbkY5oagR8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Button
                   size="lg"
                   className="h-14 px-8 rounded-none border-l-2 border-primary bg-primary/10 hover:bg-primary/20 text-primary backdrop-blur-sm transition-all group"

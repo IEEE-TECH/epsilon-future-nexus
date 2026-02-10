@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Award } from 'lucide-react';
 import { MagneticButton } from '@/components/ui/MagneticButton';
-import { RegistrationModal } from '@/components/RegistrationModal';
+
 
 export const Registration = () => {
   return (
@@ -52,16 +52,18 @@ export const Registration = () => {
 
             {/* CTA */}
             <div className="flex justify-center">
-              <RegistrationModal trigger={
+              <a
+                href="https://forms.gle/iqUVfFhtbkY5oagR8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <MagneticButton className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold text-lg hover:bg-primary/90 transition-colors shadow-[0_0_20px_rgba(0,184,212,0.3)] hover:shadow-[0_0_30px_rgba(0,184,212,0.5)]">
                   Register for EPSILON 2026
                 </MagneticButton>
-              } />
+              </a>
             </div>
 
-            <p className="text-xs text-muted-foreground mt-5">
-              Early bird registration closes December 31, 2025
-            </p>
+
           </div>
         </motion.div>
       </div>

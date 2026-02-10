@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { RegistrationModal } from '@/components/RegistrationModal';
+
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -155,9 +155,15 @@ export const Navbar = () => {
             </div>
 
             <div className="hidden md:block">
-              <Button variant="default" size="sm">
-                Register Now
-              </Button>
+              <a
+                href="https://forms.gle/iqUVfFhtbkY5oagR8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="default" size="sm">
+                  Register Now
+                </Button>
+              </a>
             </div>
 
             <button
@@ -188,11 +194,16 @@ export const Navbar = () => {
                     {link.name}
                   </a>
                 ))}
-                <RegistrationModal trigger={
-                  <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <a
+                  href="https://forms.gle/iqUVfFhtbkY5oagR8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full"
+                >
+                  <Button variant="default" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                     Register Now
                   </Button>
-                } />
+                </a>
               </div>
             </motion.div>
           )}
