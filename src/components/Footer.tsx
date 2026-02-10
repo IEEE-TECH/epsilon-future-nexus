@@ -1,8 +1,11 @@
-import { Linkedin, Instagram, Globe } from 'lucide-react';
+import { Linkedin, Instagram, Globe, Mail, Facebook, Twitter } from 'lucide-react';
 
 const socialLinks = [
-  { icon: Linkedin, href: 'https://www.linkedin.com/company/ieee-gst/', label: 'LinkedIn' },
   { icon: Instagram, href: 'https://www.instagram.com/ieeesiesgst/', label: 'Instagram' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/ieee-gst/', label: 'LinkedIn' },
+  { icon: Mail, href: 'mailto:ieeesiesgst@sies.edu.in', label: 'Email' },
+  { icon: Facebook, href: 'https://www.facebook.com/ieeesiesgst/', label: 'Facebook' },
+  { icon: Twitter, href: 'https://x.com/ieeesiesgst', label: 'X (Twitter)' },
   { icon: Globe, href: 'https://ieeesiesgst.siesgst.edu.in/', label: 'Website' },
 ];
 
@@ -11,7 +14,7 @@ const footerLinks = [
   { name: 'Tracks', href: '#tracks' },
   { name: 'Speakers', href: '#speakers' },
   { name: 'Schedule', href: '#schedule' },
-  { name: 'Register', href: '#register' },
+  { name: 'Register', href: 'https://forms.gle/iqUVfFhtbkY5oagR8' },
 ];
 
 export const Footer = () => {
@@ -46,7 +49,7 @@ export const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap justify-center items-center gap-3">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
@@ -54,9 +57,9 @@ export const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={social.label}
-                className="w-9 h-9 rounded-full border border-border/50 bg-secondary/30 flex items-center justify-center hover:border-primary/30 hover:bg-primary/10 transition-all duration-200"
+                className="w-9 h-9 rounded-full border border-border/50 bg-secondary/30 flex items-center justify-center hover:border-primary/30 hover:bg-primary/10 transition-all duration-200 group"
               >
-                <social.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
+                <social.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </a>
             ))}
           </div>

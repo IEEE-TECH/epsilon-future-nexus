@@ -197,33 +197,33 @@ export const Tracks = () => {
                     </TiltCard>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl bg-card/95 backdrop-blur-xl border-primary/20">
-                  <DialogHeader>
+                <DialogContent className="max-w-2xl w-[95vw] max-h-[85vh] p-0 gap-0 bg-card/95 backdrop-blur-xl border-primary/20 overflow-hidden flex flex-col">
+                  <DialogHeader className="p-6 pb-2 shrink-0">
                     <div className="flex items-center gap-4 mb-2">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                         <track.icon className="w-5 h-5 text-primary" />
                       </div>
                       <div>
-                        <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+                        <DialogTitle className="text-xl md:text-2xl font-bold flex items-center gap-2 text-left">
                           {track.title}
                         </DialogTitle>
-                        <DialogDescription className="text-primary/80 font-medium">
+                        <DialogDescription className="text-primary/80 font-medium text-left">
                           {track.society}
                         </DialogDescription>
                       </div>
                     </div>
                   </DialogHeader>
 
-                  <ScrollArea className="max-h-[60vh] pr-4">
-                    <div className="space-y-6 py-4">
+                  <ScrollArea className="flex-1 w-full px-6 pb-6">
+                    <div className="space-y-6 pt-2 pb-4">
                       {track.timeline.map((event, i) => (
                         <div key={i} className="relative pl-6 border-l border-border/50 pb-2 last:pb-0">
                           <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-primary" />
                           <div className="mb-1 flex items-center gap-3 text-xs text-muted-foreground">
-                            <span className="flex items-center gap-1 bg-secondary/50 px-2 py-0.5 rounded text-primary">
+                            <span className="flex items-center gap-1 bg-secondary/50 px-2 py-0.5 rounded text-primary whitespace-nowrap">
                               <Calendar className="w-3 h-3" /> {event.day}
                             </span>
-                            <span className="flex items-center gap-1">
+                            <span className="flex items-center gap-1 whitespace-nowrap">
                               <Clock className="w-3 h-3" /> {event.time}
                             </span>
                           </div>

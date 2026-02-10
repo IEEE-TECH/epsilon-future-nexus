@@ -32,7 +32,7 @@ export const Registration = () => {
             </p>
 
             {/* Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
               <div className="p-5 rounded-lg bg-secondary/30 border border-border/50">
                 <Calendar className="w-6 h-6 text-primary mx-auto mb-3" />
                 <h4 className="text-sm font-semibold text-foreground mb-1">Event Dates</h4>

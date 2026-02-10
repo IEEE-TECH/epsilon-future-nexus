@@ -178,7 +178,7 @@ export const Navbar = () => {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="md:hidden py-4 border-t border-border/30"
+              className="md:hidden py-4 border-t border-border/30 bg-background/95 backdrop-blur-lg absolute left-0 right-0 px-6 shadow-2xl"
             >
               <div className="flex flex-col gap-3">
                 {navLinks.map((link) => (
